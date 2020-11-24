@@ -10,4 +10,4 @@ Create a virtual environment in Python3 and install the packages given in the re
 Run the Flask app by 
 'python3 app.py'
 
-
+The server will listen on port 5000 expecting a POST request with 3 parameters; Job Name, Number of Jobs and Job Duration.
