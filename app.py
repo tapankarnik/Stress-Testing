@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, render_template
 import requests
-from STInterfaceTesting import GUIStub
+import pytest
 
 app = Flask(__name__)
 
@@ -11,26 +11,24 @@ def gen_jobs():
     Receives information on batch of jobs.
     Params:
     JSON with attributes:
-    jobname - str
+    job_name - str
     num_jobs - int
     job_duration - int
     """
     if request.is_json:
-        #data = request.get_json()
-        data = GUIStub().getJobDetails() #Getting data from the Stub
-        print(data)
-        jobname = data['jobname']
+        data = request.get_json()
+        job_name = data['job_name']
         num_jobs = data['num_jobs']
         job_duration = data['job_duration']
 
         for job_id in range(num_jobs):
             # Sends POST Requests to the DCN one after the other.
 
-            payload = {'jobname':jobname, 'job_id':job_id, 'total_jobs':num_jobs, 'job_duration':job_duration}
+            payload = {'job_name':job_name, 'job_id':job_id, 'total_jobs':num_jobs, 'job_duration':job_duration}
             r = requests.post('https://www.google.com',params=payload) # POST Request -> IP Addr of the DCN
-        return "OK", 200
+        return b"OK", 200
     else:
-        return "Not a JSON input", 400
+        return b"Not a JSON input", 400
 
 
 if __name__ == "__main__":
