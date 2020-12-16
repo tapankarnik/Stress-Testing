@@ -8,7 +8,7 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_app1(client):
+def test_app1_valid_input(client):
     payload = dict(
         job_name = "Tapan",
         num_jobs = 12,
@@ -18,7 +18,7 @@ def test_app1(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"OK" in result.data
 
-def test_app2(client):
+def test_app2_invalid_jobname_1(client):
     payload = dict(
         job_name = None,
         num_jobs = 2,
@@ -28,7 +28,7 @@ def test_app2(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
 
-def test_app3(client):
+def test_app3_invalid_jobname_2(client):
     payload = dict(
         job_name = "",
         num_jobs = 2,
@@ -38,7 +38,7 @@ def test_app3(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
 
-def test_app4(client):
+def test_app4_invalid_numjobs_1(client):
     payload = dict(
         job_name = "Tapan",
         num_jobs = 0,
@@ -48,7 +48,7 @@ def test_app4(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
 
-def test_app5(client):
+def test_app5_invalid_jobname_3(client):
     payload = dict(
         job_name = "j-1234858585858585858588585948359348594385983",
         num_jobs = 50,
@@ -57,7 +57,8 @@ def test_app5(client):
     payload = json.dumps(payload)
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
-def test_app6(client):
+
+def test_app6_invalid_numjobs_2(client):
     payload = dict(
         job_name = "Tapan",
         num_jobs = 101,
@@ -67,7 +68,7 @@ def test_app6(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
 
-def test_app7(client):
+def test_app7_invalid_jobduration_1(client):
     payload = dict(
         job_name = "Tapan",
         num_jobs = 99,
@@ -77,7 +78,7 @@ def test_app7(client):
     result = client.post('/jobs', data=payload, content_type='application/json')
     assert b"Invalid Input" in result.data
 
-def test_app8(client):
+def test_app8_invalid_jobduration_2(client):
     payload = dict(
         job_name = "Tapan",
         num_jobs = 100,

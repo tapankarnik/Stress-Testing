@@ -3,7 +3,9 @@
 Part of the Chaos Testing Suite
 
 [Data Center Network](https://github.com/tapankarnik/DCN)
+
 [Stress Testing Subsystem](https://github.com/tapankarnik/Stress-Testing)
+
 [Chaos Testing Subsystem](https://github.com/tapankarnik/Chaos-Testing)
 
 This module is used to send job requests to the Data Center Network.
@@ -23,7 +25,7 @@ Create a virtual environment in Python3 and install the packages given in the re
 Run the Flask app by 
 'python3 app.py'
 
-The server will listen on port 5011 expecting a POST request with 3 parameters; Job Name, Number of Jobs and Job Duration.
+The server will listen on localhost:5011/jobs expecting a POST request with 3 parameters; Job Name, Number of Jobs and Job Duration.
 
 Sample JSON
 
