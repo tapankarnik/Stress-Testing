@@ -1,4 +1,4 @@
-from app import app
+from app_sliced import app
 
 import pytest
 import json
@@ -7,7 +7,6 @@ import json
 def client():
     with app.test_client() as client:
         yield client
-
 
 def test_app1(client):
     payload = dict(
