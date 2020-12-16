@@ -1,7 +1,7 @@
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import requests
-import pytest
+import json
 
 app = Flask(__name__)
 
@@ -35,9 +35,11 @@ def gen_jobs():
         for job_id in range(num_jobs):
             # Sends POST Requests to the DCN one after the other.
 
-            payload = {'job_name':job_name, 'job_id':job_id, 'total_jobs':num_jobs, 'job_duration':job_duration}
-            url = "localhost:5000" # IP for the DCN
-            r = requests.post(url, params=payload, content_type='application/json') # POST Request -> IP Addr of the DCN
+            payload = {'job_name':job_name, 'job_id':job_id, 'num_jobs':num_jobs, 'job_duration':job_duration}
+            url = "http://loadbalancer:5000/DCN" # IP for the DCN
+            #url = "http://localhost:5006/test" # IP for the stub DCN
+            
+            r = requests.post(url, json=payload) # POST Request -> IP Addr of the DCN
         return b"OK", 200
 
     else:
@@ -46,4 +48,4 @@ def gen_jobs():
 
 if __name__ == "__main__":
     print("Starting Stress Testing Suite")
-    app.run(debug=True, use_reloader=False, threaded=False)
+    app.run(host='0.0.0.0', port=5011, debug=True)
